@@ -58,9 +58,28 @@
  		}
 
  		function getLocation() {
- 			$.get("http://ipinfo.io", function (response) {
-     			$("#local").val(response.loc);
-  			}, "jsonp");
+ 			//the code below is a MUCH more accurate way to determine user location, also comes with a performance hit
+ 			  var startPos;
+			  var geoOptions = {
+			    enableHighAccuracy: true
+			  }
+
+			  var geoSuccess = function(position) {
+			    startPos = position;
+			    $("#local").val(startPos.coords.latitude + "," + startPos.coords.longitude);
+			   // document.getElementById('startLon').innerHTML = startPos.coords.longitude;
+			  };
+			  var geoError = function(error) {
+			    console.log('Error occurred. Error code: ' + error.code);
+			    // error.code can be:
+			    //   0: unknown error
+			    //   1: permission denied
+			    //   2: position unavailable (error response from location provider)
+			    //   3: timed out
+			  };
+
+			  navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+		
  		}
 
  		var map = L.map('map').setView([35.6895, 139.6917], 15);
