@@ -1,0 +1,83 @@
+<html>
+<head>
+	<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+	<script src="js/main.js"></script>
+</head>
+<body onload="findMe()">
+			<input type="text" id= "city">
+			<input id="btn" type="button" value="Find Me!" /><br>
+			<input type="text" id= "local">
+			<input id="btnlocal" type="button" value="Find Pokemon!" />
+	<div class='container'>
+		<div class='map-window' id='map'></div>
+		<script>
+
+		function findMe(){
+			getCity();
+  			$("#btn").click(function(){
+				var city = document.getElementById('city').value;
+            	var geocoder =  new google.maps.Geocoder();
+    			geocoder.geocode( { 'address': city}, function(results, status) {
+          			if (status == google.maps.GeocoderStatus.OK) {
+            			map.panTo([results[0].geometry.location.lat(), results[0].geometry.location.lng()]);
+
+          			} else {
+            			map.panTo([39.9350642, -75.15161940000002]);
+          			}
+        		});
+  			});
+
+  			getLocation();
+  			$("#btnlocal").click(function(){
+				var local = document.getElementById('local').value;
+            	var geocoder =  new google.maps.Geocoder();
+    			geocoder.geocode( { 'address': local}, function(results, status) {
+          			if (status == google.maps.GeocoderStatus.OK) {
+
+          				L.marker([results[0].geometry.location.lat(), results[0].geometry.location.lng()]).addTo(map)
+    						.bindPopup('Enter pokemon name')
+    						.openPopup();
+
+            			map.panTo([results[0].geometry.location.lat(), results[0].geometry.location.lng()]);
+          			} else {
+            			map.panTo([39.9350642, -75.15161940000002]);
+          			}
+        		});
+  			});
+
+
+		}
+ 		function getCity() {
+  			$.get("http://ipinfo.io", function (response) {
+     			$("#city").val(response.city);
+  			}, "jsonp");
+ 		}
+
+ 		function getLocation() {
+ 			$.get("http://ipinfo.io", function (response) {
+     			$("#local").val(response.loc);
+  			}, "jsonp");
+ 		}
+
+ 		var map = L.map('map').setView([35.6895, 139.6917], 15);
+		L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+		}).addTo(map);
+		</script>
+
+		<div class='images'>
+
+			<img src="images/1.png" alt="Bulbasaur" style="width:200px;height:150px;" onclick="">
+
+		</div>
+	</div>
+	<div class='description'>
+		<h2 id= 'name'> Enter Name of Pokemon</h2>
+		<p id= 'text'> You should put like a clock here</p>
+	</div>
+</body>
+</html>
