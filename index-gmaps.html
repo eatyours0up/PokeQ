@@ -14,9 +14,18 @@
         height: 50%;
       }
     </style>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </head>
   <body>
     <div id="map"></div>
+	<div id="actions" class="input-group">
+	  <span class="input-group-btn">
+	    <button class="btn btn-primary" type="button">Tag Pokemon!</button>
+	  </span>
+	  <input type="text" class="form-control">
+	</div>
     <script>
 	function initMap() {
 	  var map = new google.maps.Map(document.getElementById('map'), {
