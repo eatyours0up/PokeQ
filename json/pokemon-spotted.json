@@ -1,0 +1,17 @@
+{
+	"pokemon": [{
+		"name": "pikachu",
+		"location": [{
+			"lat": 12344,
+			"long": -23455
+		}],
+		"time-spotted": ""
+	}, {
+		"name": "bulbasaur",
+		"location": [{
+			"lat": 12344,
+			"long": -23455
+		}],
+		"time-spotted": ""
+	}]
+}
