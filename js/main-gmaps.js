@@ -1,5 +1,6 @@
 function tagPokemon(){
-	alert(pos);
+	alert(pos.lat);
+	alert(pos.lng);
         var marker = new google.maps.Marker({
           position: pos,
           map: map,
